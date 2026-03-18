@@ -16,7 +16,7 @@ export function WelcomePage() {
           <img
             src={guruLogo}
             alt="GURU"
-            className="h-36 sm:h-44 lg:h-52 w-auto"
+            className="max-h-36 sm:max-h-44 lg:max-h-52 w-auto object-contain"
             draggable={false}
           />
 
@@ -32,7 +32,7 @@ export function WelcomePage() {
               Build & Customize your Operating System
             </p>
             <p
-              className="text-base sm:text-lg lg:text-xl italic font-light"
+              className="text-lg sm:text-xl lg:text-[1.6rem] italic font-light"
               style={{ color: C.midBlue }}
             >
               step by step — just by chatting
