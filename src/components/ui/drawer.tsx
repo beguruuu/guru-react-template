@@ -1,4 +1,3 @@
-"use client"
 
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
@@ -17,10 +16,24 @@ function DrawerTrigger({
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />
 }
 
+const DrawerPortalInner = DrawerPrimitive.Portal as React.FC<{
+  children?: React.ReactNode;
+  container?: HTMLElement | null;
+  "data-slot"?: string;
+}>;
+
 function DrawerPortal({
+  children,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Portal>) {
-  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />
+}: {
+  children?: React.ReactNode;
+  container?: HTMLElement | null;
+}) {
+  return (
+    <DrawerPortalInner data-slot="drawer-portal" {...props}>
+      {children}
+    </DrawerPortalInner>
+  );
 }
 
 function DrawerClose({

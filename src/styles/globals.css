@@ -1,11 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@font-face {
-  font-family: "Geist";
-  src: local("Geist");
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -48,27 +43,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-@layer base {
-  :root {
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-  }
-
-  .dark {
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-  }
-}
-
 :root {
   --font-geist-sans: "Geist", system-ui, sans-serif;
-  --font-geist-mono: "Geist Mono", "Geist_Mono", ui-monospace, monospace;
+  --font-geist-mono: "Geist Mono", ui-monospace, monospace;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -144,25 +121,5 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-geist-sans);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes terminal-scan {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(3000%);
   }
 }
