@@ -4,6 +4,11 @@ import { WelcomePage } from "@/pages/welcome";
 import { HomePage } from "@/pages/home";
 import { NotFoundPage } from "@/pages/not-found";
 
+const getBasePath = () => {
+  const base = (window as Window & { __BASE_PATH__?: string }).__BASE_PATH__;
+  return base ? base.replace(/\/$/, "") : "/";
+};
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -23,4 +28,4 @@ export const router = createBrowserRouter([
     path: "*",
     element: <NotFoundPage />,
   },
-]);
+], { basename: getBasePath() });
