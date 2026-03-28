@@ -3,10 +3,26 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
 
+/** Set by beguru-deployment sandbox (nginx /preview/{port}/…). Must match Vite `base` for asset URLs. */
+function baseFromEnv(): string {
+  const raw = process.env.NEXT_BASE_PATH?.trim();
+  if (!raw) return "/";
+  return raw.endsWith("/") ? raw : `${raw}/`;
+}
+
+function proxyToAPI(env: Record<string, string>) {
+  return {
+    target: env.VITE_API_BASE_URL ?? "http://localhost:8000",
+    changeOrigin: true,
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const base = baseFromEnv();
 
   return {
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
@@ -15,11 +31,11 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       port: 5173,
+      allowedHosts: ["app.local", "app.beguru.ai"],
       proxy: {
-        "/api": {
-          target: env.VITE_API_BASE_URL ?? "http://localhost:8000",
-          changeOrigin: true,
-        },
+        ...(base === "/"
+          ? { "/api": proxyToAPI(env) }
+          : { [`${base.replace(/\/$/, "")}/api`]: proxyToAPI(env) }),
       },
     },
     build: {
